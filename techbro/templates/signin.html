@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} signin {% endblock title %}
+<!-- header  -->
+{% block header %} {% include 'header.html' %}{% endblock header %}
+<!-- header  -->
+{% block content %}
+<div class="container chicken">
+    <div class="turkey">
+        <form class="form2" action="{% url 'signin' %}" method="POST">
+            {% csrf_token %}
+            <h3>Sign in</h3>
+            <div class="form-div">
+                <label for="fname" name="username">User Name</label>
+                <input type="text" class="fname" name="username" placeholder="Name or email" id="fname" itemid="fname" >
+            </div>
+            <div class="form-div">
+                <label for="password" name='password'>Password</label>
+                <input type="password" class="inputag" name="password" placeholder="Password" id="password" itemid="password" >
+                <div class="hide">
+                    <i class="fa-solid fa-eye-slash"></i>
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+            </div>
+            <div class="submit">
+                <input type="submit" value="Sign in">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
+<!--- footer -->
+{% block footer %} {% include 'footer.html' %}{% endblock footer %}
+<!--- footer done -->

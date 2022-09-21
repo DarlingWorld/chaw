@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %} {{Profile.user.username|title}}'s {% endblock title %}
+<!-- header  -->
+{% block header %} {% include 'header.html' %}{% endblock header %}
+<!-- header  -->
+
+
+{% block content %}
+<section class="mt-5">
+  <div class="container cart">
+     <div>
+      <h5>Dear {{profile.first_name|title}}, your transaction was successfull</h5>
+      <h5 style="color: green">your package will be delived in a hour time</h5>
+      <h5 style="color: red">Thank you for your patronage</h5>
+     </div>
+  </div>
+</div>
+  
+{% endblock content %}
+  
+    
+
+
+<!--- footer -->
+{% block footer %} {% include 'footer.html' %}{% endblock footer %}
+<!--- footer done -->

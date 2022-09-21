@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}{{profile.user.username|title}}'s Shopcart {% endblock title %}
+<!-- header  -->
+{% block header %} {% include 'header.html' %}{% endblock header %}
+<!-- header  -->
+
+
+
+{% block content %}
+
+<section class="mt-5">
+  <div class="container cart">
+    <div class="table-responsive">
+      <h2 class="text-center text-secondary">{{profile.user.username|title}}'s Shopcart</h2>
+      <table class="table">
+        <thead class="thead bg-dark">
+          <tr>
+            <th scope="col" class="text-white">Delete</th>
+            <th scope="col" class="text-white">Product</th>
+            <th scope="col" class="text-white">Price</th>
+            <th scope="col" class="text-white">Quantity</th>
+            <th scope="col" class="text-white">Total</th>
+          </tr>
+          
+        
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>
+              <form action="{% url 'deleteallmeal' %}" method="POST" class="deleteall">
+                {% csrf_token %}
+                <input type="hidden" name="alldishid" value="{{id}}">
+                <button type="submit" onclick="return confirm('are you sure you want to delete this Items from your cart?')" class="btn btn-transparent text-danger"><i class="fa-solid fa-trash"></i></button>
+              </form>
+            </td>
+            <td>
+          </tr>
+          {% if shopcart %}
+          {% for item in shopcart %}
+          <tr>
+            <td>
+              <form action="{% url 'deletemeal' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="dishid" value="{{item.id}}">
+                <button type="submit" class="btn btn-transparent text-danger"><i class="fa-solid fa-trash"></i></button>
+              </form>
+            </td>
+            <td>
+              
+              <div class="main">
+                <div class="d-flex">
+                  <img src="{{item.dish.image.url}}" alt="">
+                </div>
+                <div class="des">
+                  <p>{{item.c_name}}</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <h6>{{item.c_price|floatformat:2|intcomma}}</h6>
+            </td>
+            <td>
+              <span class="ms-2 me-2">{{item.quantity}}</span>
+              <div class="counter d-flex">
+                <form action=" {% url 'decrease' %}" method="POST"> 
+                  {% csrf_token %}
+                  <input type="hidden" name="itemid" value="{{item.id}}">
+                  <input type="number" name="decrease" value="1" min="{{item.dish.min}}" max="{{item.dish.max}}" style="width: 100px;">
+                  <button type="submit" class="bg-transparent border-0"><i class="fa-solid fa-circle-minus"></i></button>
+                </form>
+
+                <form action=" {% url 'increase' %}" method="POST">
+                  {% csrf_token %} 
+                  <input type="hidden" name="itemid" value="{{item.id}}">
+                  <input type="number" name="increase" value="1" min="{{item.dish.min}}" max="{{item.dish.max}}" style="width: 100px;">
+                  <button type="submit" class="bg-transparent border-0"><i class="fa-solid fa-circle-plus text-success"></i></button>
+                </form>
+              </div>
+            </td>
+            <td>
+              <h5>{{total|floatformat:2|intcomma}}</h5>
+            </td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<div class="col-lg-4 offset-lg-4">
+  <div class="checkout">
+    <ul>
+      <li class="Subtotal">Subtotal
+        <span>₦{{subtotal|floatformat:2|intcomma}}</span>
+      </li>
+      <li class="cart-total">Vat
+        <span>₦{{vat|floatformat:2|intcomma}}</span>
+      </li>
+      <li class="cart-total">Total
+        <span>₦{{total|floatformat:2|intcomma}}</span>
+      </li>
+    </ul>
+    <a href="{% url 'checkout' %}" class="proceed-btn">Proceed To checkout</a>
+  </div>
+</div>
+
+
+{% endblock content %}
+    
+
+
+<!--- footer -->
+{% block footer %} {% include 'footer.html' %}{% endblock footer %}
+<!--- footer done -->
