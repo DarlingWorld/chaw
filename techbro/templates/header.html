@@ -7,9 +7,9 @@
             {% if request.user.is_authenticated %}       
             <li><a class="dropdown-item" href="{% url 'dashboard' %}">Profile</a></li>
             <li><a class="dropdown-item" href="{% url 'mycart' %}">Shopcart</a></li>
-            <li><a class="dropdown-item" href="{% url 'signin' %}">Login</a></li>
-            {% else %}
             <li><a class="dropdown-divider" href="{% url 'signout' %}" >signout</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'signin' %}">Login</a></li>
             <li><a class="dropdown-item" href="{% url 'signup' %}">register</a></li>
             {% endif %}  
             </ul>
