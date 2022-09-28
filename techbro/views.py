@@ -178,6 +178,7 @@ def signup(request):
     return render(request, 'signup.html')
 
 #dashboard configuration
+@login_required(login_url='signin') 
 def dashboard(request):
     profile_data = Profile.objects.get(user__username = request.user.username)
     
@@ -206,7 +207,7 @@ def profileupdate(request):
     }
     return render(request, 'profileupdate.html', context)
 
-
+@login_required(login_url='signin') 
 def passwordupdate(request):
     profile_data = Profile.objects.get(user__username = request.user.username)
     form = PasswordChangeForm(request.user)
@@ -227,7 +228,7 @@ def passwordupdate(request):
     }
     return render(request, 'passwordupdate.html', context)
 
-
+@login_required(login_url='signin') 
 def ordermeal(request):
     profile_data = Profile.objects.get(user__username = request.user.username)
     cart_no = profile_data.id
@@ -274,7 +275,9 @@ def ordermeal(request):
             
     return redirect('all_food')
 
-#@login_required(login_urls='signin')
+
+
+@login_required(login_urls='signin')
 def mycart(request):
     profile = Profile.objects.get(user__username = request.user.username)
     shopcart = Shopcart.objects.filter(user__username = request.user.username, paid=False)
@@ -309,6 +312,8 @@ def deletemeal(request):
         messages.success(request, "meal item was deleted successfully")
     return redirect('mycart')
 
+
+@login_required(login_url='signin') 
 def deleteallmeal(request):
     if request.method == 'POST':
         meal = request.POST['alldishid']
@@ -372,6 +377,7 @@ def checkout(request):
     }
     return render(request, 'checkout.html', context)
 
+@login_required(login_url='signin') 
 def payment(request):
     if request.method == 'POST':
         api_key = 'sk_test_582504fabde3e960f983a6e5acb409e69bc18b3d'
@@ -423,6 +429,7 @@ def payment(request):
                  
             return redirect(rurl)
     return redirect('checkout')
+
 
 def completed(request):
     profile = Profile.objects.get(user__username= request.user.username)
