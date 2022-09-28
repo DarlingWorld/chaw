@@ -277,7 +277,7 @@ def ordermeal(request):
 
 
 
-@login_required(login_urls='signin')
+@login_required(login_url='signin')
 def mycart(request):
     profile = Profile.objects.get(user__username = request.user.username)
     shopcart = Shopcart.objects.filter(user__username = request.user.username, paid=False)
