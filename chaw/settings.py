@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'chaw.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'chawdb',
+        'NAME': 'aguworld',
         'USER': 'chawadmin',
         'PASSWORD': 'admin1234',
         'HOST': '127.0.0.1',
